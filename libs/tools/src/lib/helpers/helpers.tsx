@@ -2,12 +2,12 @@ import React from 'react';
 
 import './helpers.scss';
 
-/* eslint-disable-next-line */
+
 interface Availability {
   timestamp: number;
   value: string;
 }
-/* eslint-disable-next-line */
+
 export const determineColorOfBox = (availabilities: Availability[]):string => {
   let avString = "available";
 

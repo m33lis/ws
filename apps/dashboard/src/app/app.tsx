@@ -4,6 +4,7 @@ import './app.scss';
 
 import { ReactComponent as Logo } from './logo.svg';
 import star from './star.svg';
+import Tooltip from './tooltip/tooltip';
 
 interface Availability {
   timestamp: number;
@@ -17,7 +18,8 @@ interface WindowSize {
 
 interface RenderedBox {
   latestAvailability?: string;
-  values: Availability[]
+  values: Availability[];
+  isTooltipVisible?: false;
 }
 
 export const App = () => {
@@ -28,6 +30,11 @@ export const App = () => {
     height: undefined,
   });
 
+  const [toolTipVisible, setToolTipVisible] = useState(false);
+
+  const showTooltip = (event) => {
+    setToolTipVisible(true);
+  };
 
   useEffect(() => {
     fetch('/api/rbs/'+window.innerWidth)
@@ -91,7 +98,7 @@ export const App = () => {
         </div>
         <div className={'av-bar-content'}>
           {rbs.map((a, idx) => (
-            <span key={idx} className={'av-bar ' + determineColorOfBox(a.values)}></span>
+            <span key={idx} className={'av-bar ' + determineColorOfBox(a.values)} onClick={showTooltip}><Tooltip avs={a.values} /></span>
           ))}
         </div>
         <div className={'footer'}>
