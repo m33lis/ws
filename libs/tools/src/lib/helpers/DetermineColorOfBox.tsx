@@ -1,14 +1,9 @@
 import React from 'react';
+import './DetermineColorOfBox.scss';
+import {Availability} from "@m3l/tools";
 
-import './helpers.scss';
 
-
-interface Availability {
-  timestamp: number;
-  value: string;
-}
-
-export const determineColorOfBox = (availabilities: Availability[]):string => {
+const DetermineColorOfBox = (availabilities: Availability[]):string => {
   let avString = "available";
 
   if (availabilities === undefined || availabilities === null) {
@@ -25,3 +20,5 @@ export const determineColorOfBox = (availabilities: Availability[]):string => {
 
   return avString;
 }
+
+export default determineColorOfBox;

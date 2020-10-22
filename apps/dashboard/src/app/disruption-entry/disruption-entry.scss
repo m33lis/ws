@@ -1,0 +1,43 @@
+.disruption-list-item {
+  alignment: center;
+  font-size: 1rem;
+  list-style: none;
+  background-color: lightgrey;
+  justify-items: stretch;
+  padding: 5px;
+  margin: 2px;
+  width: 100%;
+}
+
+.orange {
+  padding: 2px;
+  color: orange;
+}
+.red {
+  padding: 2px;
+  color: red;
+}
+
+.disruption-list-item-icon {
+  font-size: 1rem;
+  width: 20px;
+  alignment: left;
+  display: inline-block;
+  margin-right: 2px;
+}
+
+.disruption-list-item-value {
+  alignment: center;
+  width: 100px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-bottom: 6px;
+}
+
+.disruption-list-item-duration {
+  width: 40px;
+  alignment: right;
+  display: inline-block;
+  vertical-align: middle;
+  margin-bottom: 6px;
+}

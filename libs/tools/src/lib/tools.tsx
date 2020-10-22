@@ -1,7 +1,21 @@
-import React from 'react';
+interface Tools {
 
-import './tools.scss';
-import {determineColorOfBox} from "./helpers/helpers";
+}
 
-/* eslint-disable-next-line */
-export default determineColorOfBox;
+const Tools = (props: Tools) => {
+
+}
+
+
+export default Tools;
+
+export interface Availability {
+  timestamp: number;
+  value: string;
+}
+
+export interface RenderedBox {
+  latestAvailability?: string;
+  values: Availability[];
+  isTooltipVisible?: boolean;
+}

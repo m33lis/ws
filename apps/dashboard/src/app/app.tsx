@@ -2,9 +2,9 @@ import React, {useEffect, useState} from 'react';
 
 import './app.scss';
 
-import { ReactComponent as Logo } from './logo.svg';
-import star from './star.svg';
-import Tooltip from './tooltip/tooltip';
+import RenderedBox from "./rendered-box/rendered-box";
+import LatestAvailability from "./latest-availability/latest-availability";
+import TotalAvailability from "./total-availability/total-availability";
 
 interface Availability {
   timestamp: number;
@@ -16,39 +16,19 @@ interface WindowSize {
   height: number
 }
 
-interface RenderedBox {
-  latestAvailability?: string;
-  values: Availability[];
-  isTooltipVisible?: false;
-}
-
 export const App = () => {
-
   const [rbs, setRbs] = useState<RenderedBox[]>([{latestAvailability:"", values:[]}]);
-  const [windowSize, setWindowSize] = useState({
-    width: undefined,
-    height: undefined,
-  });
-
-  const [toolTipVisible, setToolTipVisible] = useState(false);
-
-  const showTooltip = (event) => {
-    setToolTipVisible(true);
-  };
+  const [rbsTotalAvailability, setRbsTotalAvailability] = useState(0);
 
   useEffect(() => {
-    fetch('/api/rbs/'+window.innerWidth)
-      .then((_) => _.json())
-      .then(setRbs);
+    fetchData()
   }, []);
 
   useEffect(() => {
     // Handler to call on window resize
     function handleResize() {
       // Set window width/height to state
-      fetch('/api/rbs/'+window.innerWidth)
-        .then((_) => _.json())
-        .then(setRbs);
+      fetchData();
     }
 
     // Add event listener
@@ -62,48 +42,40 @@ export const App = () => {
   }, []); // Empty array ensures that effect is only run on mount
 
 
-  function determineColorOfBox(availabilities: Availability[]) {
-    let avString = "available";
+  const fetchData = () => {
+    fetch('/api/rbs/'+window.innerWidth)
+      .then((_) => _.json())
+      .then((vals) => {
+        setRbs(vals);
+        getTotalAvailabilityFromRbs(vals);
+      });
+  }
 
-    if (availabilities === undefined || availabilities === null) {
-      return;
-    }
-
-    availabilities.forEach((av) => {
-      if (av.value === "partially-unavailable" && avString !== "unavailable") {
-        avString = "partially-unavailable";
-      } else if (av.value === "unavailable") {
-        avString = "unavailable";
-      }
+  const getTotalAvailabilityFromRbs = (rbs: RenderedBox[]):void => {
+    let val = 0;
+    rbs.forEach((rb) => {
+      rb.values.forEach((av) => {
+        if (av.value === "available") val++;
+      })
     });
 
-    return avString;
-  }
-
-  function howManyBoxesPerRow(width: number): number {
-    if (width !== undefined) {
-      return width / 10;
-    }
-  }
-
-  function getLatestAvailability(rbs: RenderedBox[]) {
-    return rbs[rbs.length-1].latestAvailability;
+    setRbsTotalAvailability((val*100)/1440);
   }
 
   return (
       <div className={'project'}>
         <div className={'header'}>
           <div className={'title'}>Project A</div>
-          <div className={'current-status'}>{getLatestAvailability(rbs)}</div>
+          <LatestAvailability renderedBoxes={rbs} />
         </div>
         <div className={'av-bar-content'}>
           {rbs.map((a, idx) => (
-            <span key={idx} className={'av-bar ' + determineColorOfBox(a.values)} onClick={showTooltip}><Tooltip avs={a.values} /></span>
+            <RenderedBox key={idx} values={a.values}/>
           ))}
         </div>
         <div className={'footer'}>
           <div className={'beginning'}>24 hours ago</div>
-          <div className={'av-amount'}>99.96% availability</div>
+          <TotalAvailability totalAvailability={rbsTotalAvailability} />
           <div className={'end'}>Today</div>
         </div>
       </div>
@@ -111,34 +83,3 @@ export const App = () => {
 };
 
 export default App;
-
-function useWindowSize() {
-  // Initialize state with undefined width/height so server and client renders match
-  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
-  const [windowSize, setWindowSize] = useState({
-    width: undefined,
-    height: undefined,
-  });
-
-  useEffect(() => {
-    // Handler to call on window resize
-    function handleResize() {
-      // Set window width/height to state
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    }
-
-    // Add event listener
-    window.addEventListener("resize", handleResize);
-
-    // Call handler right away so state gets updated with initial window size
-    handleResize();
-
-    // Remove event listener on cleanup
-    return () => window.removeEventListener("resize", handleResize);
-  }, []); // Empty array ensures that effect is only run on mount
-
-  return windowSize;
-}

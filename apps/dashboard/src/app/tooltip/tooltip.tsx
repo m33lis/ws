@@ -1,31 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import './tooltip.scss';
-
-interface Availability {
-  timestamp: number;
-  value: string;
-}
+import Moment from "react-moment";
+import {Availability} from "@m3l/tools";
+import Disruptions from "../disruptions/disruptions";
 
 /* eslint-disable-next-line */
-export interface TooltipProps {
+export interface Tooltip {
   avs: Availability[];
-  isVisible?: boolean;
+  isTooltipVisible: boolean;
 }
 
-export const Tooltip = (props: TooltipProps) => {
-  if (props.isVisible) {
+export const Tooltip = (props: Tooltip) => {
+  if (props.isTooltipVisible) {
     return (
-      <div className={'tooltip-outer'}>
-        <div className={'tooltip-inner'}>
-          <ul>
-            {props.avs.map((a, i) => <li key={a.timestamp}>{a.timestamp} - {a.value}</li>)}
-          </ul>
+      <div className={'arrow-up'}>
+        <div className={'tooltip-outer'}>
+          <h3 className={'tooltip-header'}><Moment format="HH:mm:ss[Z] / DDMMMYY">{props.avs[0].timestamp}</Moment></h3>
+          <div className={'tooltip-inner'}>
+            <Disruptions avs={props.avs} />
+          </div>
         </div>
       </div>
     );
   } else {
-    return (<div></div>)
+    return (<div></div>);
   }
 };
 

@@ -8,10 +8,6 @@
   float: left;
 }
 
-.current-status {
-  display: block;
-  float: right;
-}
 
 .av-bar-content {
   margin-top: 2rem;
@@ -24,17 +20,7 @@
   margin: 2px;
 }
 
-.av-bar.available {
-  background-color: green;
-}
 
-.av-bar.partially-unavailable {
-  background-color: orange;
-}
-
-.av-bar.unavailable {
-  background-color: red;
-}
 
 .beginning {
   display: inline-block;

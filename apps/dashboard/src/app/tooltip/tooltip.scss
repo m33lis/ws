@@ -1,0 +1,35 @@
+.tooltip-outer {
+  position: relative;
+  margin-top: 10px;
+  float:left;
+  margin-left: -150px;
+  width: 300px;
+  border: 1px solid rgba(27, 31, 35, 0.35);
+  overflow: auto;
+  z-index: 2;
+  background: none repeat scroll 0 0 #fff;
+}
+
+.tooltip-inner {
+  width: 80%;
+
+
+}
+
+.arrow-up {
+  margin-top: 40px;
+  margin-left: -13px;
+  width: 0;
+  height: 0;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-bottom: 16px solid black;
+}
+
+.tooltip-header {
+  font-family: Verdana, serif;
+  margin-left: 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: capitalize;
+}

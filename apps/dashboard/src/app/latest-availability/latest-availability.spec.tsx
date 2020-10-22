@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import Helpers from './helpers';
+import LatestAvailability from './latest-availability';
 
-describe('Helpers', () => {
+describe('LatestAvailability', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<Helpers />);
+    const { baseElement } = render(<LatestAvailability />);
     expect(baseElement).toBeTruthy();
   });
 });
