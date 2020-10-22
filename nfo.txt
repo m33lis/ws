@@ -1,0 +1,23 @@
+backend
+
+- genereeri käivitamisel andmesetid per projekt
+- andmesetid peavad olema genereeritud viimase 1440 sekundi kohta
+Math.floor(Math.random() * 3)+1
+
+Tooltip
+	dateTimeGroup: string;
+	severity: Availability;
+	duration: int; // number of autages
+
+Dashboard
+	project: Project
+
+Project
+	name: string;
+	entries: Availability[];
+
+Availability:
+	enum:
+	- available
+	- partially-unavailable
+	- unavailable

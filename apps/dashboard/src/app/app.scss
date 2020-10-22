@@ -1,3 +1,59 @@
+.project {
+  border: 1px solid gray;
+  display: block;
+}
+
+.title {
+  display: block;
+  float: left;
+}
+
+.current-status {
+  display: block;
+  float: right;
+}
+
+.av-bar-content {
+  margin-top: 2rem;
+}
+
+.av-bar {
+  display: inline-block;
+  width: 6px;
+  height: 40px;
+  margin: 2px;
+}
+
+.av-bar.available {
+  background-color: green;
+}
+
+.av-bar.partially-unavailable {
+  background-color: orange;
+}
+
+.av-bar.unavailable {
+  background-color: red;
+}
+
+.beginning {
+  display: inline-block;
+  width: 20%;
+}
+
+.av-amount {
+  display: inline-block;
+  width: 60%;
+  text-align: center;
+}
+
+.end {
+  display: inline-block;
+  width: 20%;
+  text-align: right;
+}
+
+
 .app {
   font-family: sans-serif;
   min-width: 300px;

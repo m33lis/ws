@@ -15,7 +15,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@m3l/tools": ["libs/tools/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
