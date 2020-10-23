@@ -1,7 +1,9 @@
-import {useEffect, useState} from "react";
 import {Express} from "express";
-import {Availability} from "@m3l/tools";
 
+export interface Availability {
+  timestamp: number;
+  value: string;
+}
 
 interface RenderedBox {
   latestAvailability?: string;
